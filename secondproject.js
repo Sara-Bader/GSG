@@ -60,6 +60,8 @@ function todoApp() {
           console.log("No tasks available to mark as done");
         } else {
           markTaskAsDone();
+          
+          
         }
         console.log(menu);
         break;
@@ -153,17 +155,19 @@ function todoApp() {
     });
   }
 
-  function markTaskAsDone() {
-    console.log("Mark a task as done");
-    const taskNumber = readlineSync.question("Task number: ");
-    const task = tasks.find(task => task.taskNumber === Number(taskNumber));
-    if (task) {
+function markTaskAsDone() {
+  console.log("Mark a task as done");
+  const taskNumber = readlineSync.question("Task number: ");
+  const filteredTasks = tasks.filter(task => task.taskNumber === Number(taskNumber));
+  if (filteredTasks.length > 0) {
+    filteredTasks.forEach(task => {
       task.status = "complete";
-      console.log("Task marked as done successfully");
-    } else {
-      console.log("Invalid task number");
-    }
+      console.log(`Task ${task.taskNumber} marked as done successfully`);
+    });
+  } else {
+    console.log("Invalid task number");
   }
+}
 
   function deleteTask() {
     console.log("Delete a task");
